@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <title>Test 1</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Menghitung Kredit Rumah</h4>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Golongan Pegawai</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" v-model="golongan">
+                                        <option value="1">Golangan I</option>
+                                        <option value="2">Golongan II</option>
+                                        <option value="3">Golongan III</option>
+                                        <option value="4">Golangan IV</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Status perkawinan</label>
+                                <div class="col-sm-9">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" v-model="statuskawin" value="menikah">
+                                        <label class="form-check-label">Menikah</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" v-model="statuskawin" value="belum">
+                                        <label class="form-check-label">Belum Menikah</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Jenis Kelamin</label>
+                                <div class="col-sm-9">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" v-model="jeniskelamin" value="laki-laki">
+                                        <label class="form-check-label">laki-laki</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" v-model="jeniskelamin" value="perempuan">
+                                        <label class="form-check-label">perempuan</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Jumlah Anak</label>
+                                <div class="col-sm-9">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" v-model="anak" value="1">
+                                        <label class="form-check-label">1</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" v-model="anak" value="lebih dari fa-rotate-270">
+                                        <label class="form-check-label">lebih dari 1</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-outline-primary" v-on:click="hitungGaji">Hitung</button>
+                        <!-- <tr v-if="!datalist.lenght"> -->
+                           
+                            <div class="row mt-5">
+                                <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                                    <h1 class="text-center"> HASIL PERHITUNGAN GAJI</h1>
+
+                                  </div>
+                                </span>
+                                <table class="table table-hover">
+                                 
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="2"><h4>INFO PEGAWAI</h4></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-md-9"><em>Golangan </em></td>
+                                            <td class="col-md-1 text-center">{{ golongan }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-md-9"><em>jenis Kelamin</em></td>
+                                            <td class="col-md-1 text-center">{{ jeniskelamin }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-md-9"><em>Jumlah Anak </em></td>
+                                            <td class="col-md-1 text-center">{{ anak }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"><h4>GAJI DAN TUNJANGAN</h4></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-md-9"><em>Gaji Pokok</em></td>
+                                            <td class="col-md-1 text-center">{{ formatRupiah(gapok) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-md-9"><em>Tunjangan</em></td>
+                                            <td class="col-md-1 text-center">{{  formatRupiah(tungol)  }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="col-md-9"><em>Tunjangan Istri</em></td>
+                                            <td class="col-md-1 text-center">{{  formatRupiah(tunis)  }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-md-9"><em>Tunjangan Anak</em></td>
+                                            <td class="col-md-1 text-center">{{  formatRupiah(tunak)  }}</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td class="col-md-9"><em>Total</em></td>
+                                            <td class="col-md-1 text-center">{{  formatRupiah(total)  }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-md-9"><em>Pajak</em></td>
+                                            <td class="col-md-1 text-center">{{  formatRupiah(pajak)  }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-md-9"><em>Gaji Sementara</em></td>
+                                            <td class="col-md-1 text-center">{{  formatRupiah(gajiS)  }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"><h4>GAJI BERSIH</h4></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-md-9"><em>Potongan pensiun</em></td>
+                                            <td class="col-md-1 text-center">{{  formatRupiah(200000)  }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-md-9"><em>Potongan BPJS</em></td>
+                                            <td class="col-md-1 text-center">{{  formatRupiah(150000)  }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-md-9"><h4>GAJI BERSIH</h4></td>
+                                            <td class="col-md-1 text-center"><h4>{{  formatRupiah(gajiber)  }}</h4></td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                             
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- vue -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+<script>
+    function disable() { document.getElementById("name").disabled = true; } 
+    function enable() { document.getElementById("name").disabled = false; }
+
+    var app2 = new Vue({
+        el: "#app",
+        data: {
+            golongan:"",
+            statuskawin: "",
+            jeniskelamin:"",
+            anak:"",
+            sisa:"",
+            gapok:"",
+            tungol:"",
+            tunak:"",
+            tunis:"",
+            total:"",
+            pajak:"",
+            gajiS:"",
+            pPensiun:200000,
+            PBpjs:150000,
+            gajiber:"",
+
+
+        },
+        methods: {
+            hitungGaji: function () {
+                if(this.statuskawin="menikah"){
+
+                }
+                else{
+
+                }
+            },
+             golongan: function (gol) {
+                switch (gol) {
+                    case "1":
+                        this.gapok=1500000;
+                        this.tungol=200000;
+                        break;
+                    case "2":
+                        this.gapok=2000000;
+                        this.tungol=400000;
+                        break;
+                    case "3":
+                        this.gapok=3000000;
+                        this.tungol=600000;
+                        break;
+                    case "4":
+                        this.gapok=4000000;
+                        this.tungol=1000000;
+                        break;
+                    default:
+                        
+                }
+            },
+                formatRupiah(bilangan){
+                   var number_string = bilangan.toString(),
+                        sisa = number_string.length % 3,
+                        rupiah = number_string.substr(0, sisa),
+                        ribuan = number_string.substr(sisa).match(/\d{3}/g);
+
+                    if (ribuan) {
+                        separator = sisa ? '.' : '';
+                        rupiah += separator + ribuan.join('.');
+                    }
+
+                    // Cetak hasil
+                    return rupiah
+
+                    
+                },
+              
+
+        },
+        computed: {
+            hitung: function () {
+                switch (this.tipeRumah) {
+                    case "rose":
+                        this.hargaRumah = 120000000;
+                        this.uangMuka = this.hargaRumah * 0.2;
+                        this.sisa = this.hargaRumah - this.uangMuka;
+                        this.angsuran = this.pembulat(this.sisa / this.lamaKredit);
+                        break;
+                    case "gold":
+                        this.hargaRumah = 300000000;
+                        this.uangMuka = this.hargaRumah * 0.2;
+                        this.sisa = this.hargaRumah - this.uangMuka;
+                        this.angsuran = this.pembulat(this.sisa / this.lamaKredit);
+                        break;
+                    case "platinum":
+                        this.hargaRumah = 360000000;
+                        this.uangMuka = this.hargaRumah * 0.2;
+                        this.sisa = this.hargaRumah - this.uangMuka;
+                        this.angsuran = this.pembulat(this.sisa / this.lamaKredit);
+                        break;
+                    default:
+
+                }
+            },
+        },
+    })
+</script>
+
+</html>
