@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   
+    <title>Test 2</title>
+</head>
+<body>
+    <div id="app">
+        <div class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Menghitung Jumlah</h4>
+                        </div>
+                        <div class="card-body">
+
+                            <h3>Kata yang difilter muncul sebanyak:</h3>
+                            <P>{{ array2.join(', ') }}</P>
+                            <ul>
+
+                                <li v-for="(ha,index) in array1">
+                                    kata {{ ha}} muncul sebanyak {{ hitung(ha) }}
+                                </li>
+                            </ul>
+                            <h3>Kalimat yang dikonversi berubah menjadi “i”  </h3>
+                            <ul>
+                                <li v-for="(h,index) in array2">
+                                    {{ ubah(h) }}
+                                </li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </div>
+</body>
+<!-- vue -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+<script>
+      var app = new Vue({
+            el: '#app',
+            data: {
+                kata:'apa yang anda lakukan',
+                mobil: ['mersi', 'daihatu', 'toyota'],
+                array1 :['apa', 'saya', 'anda','kamu','hallo'],
+                array2 : ["apa yang anda lakukan?", "selamat pagi", "kamu ternyata cantik juga ya","yukk belajar javascript","kamu itu adalah kebanggaan saya","music hari ini yang akan di putar oleh gabut FM apa ya?"],
+                vocal : "i"
+                
+            },
+            methods: {
+                
+                cari:function(cari){
+                    var stringsearch = cari, str = this.array2.join(' ');
+                    var banyak_kata = str
+                    banyak_kata = banyak_kata.split(" ")
+                    for (var i = count = 0; i < str.length; count += +(stringsearch === str[i++]));
+                    return banyak_kata.length
+                },
+                hitung:function(cari){
+                    var stringsearch = cari, str = this.array2.join(' ');
+                    banyak_kata = str.split(" ");
+                    for (var i = count = 0; i < banyak_kata.length; count += +(stringsearch === banyak_kata[i++]));
+                    return count
+                },
+                cari2:function(){
+                    var formcontent=this.array2.join(' ');
+                     isi=formcontent.split(" ") 
+                     return isi.length 
+                },
+                ubah:function(str){
+                a= strBaru = str.replace(/a/gi, 'i');
+                b = a.replace(/i/gi, 'i');
+                c = b.replace(/u/gi, 'i');
+                d = c.replace(/e/gi, 'i');
+                 strBaru = d.replace(/o/gi, 'i');
+                return strBaru;
+             },
+            },
+            computed:{
+                // cari:function(cari,data){
+                //     var stringsearch = cari, str = array2;
+                //     var banyak_kata = this.kata
+                //     banyak_kata = banyak_kata.split(" ")
+                //     for (var i = count = 0; i < str.length; count += +(stringsearch === str[i++]));
+                //     return banyak_kata.length
+                // },
+                // cari:function(key){
+                
+                //    return this.array2.indexOf(key);
+                // },
+            },
+        })
+</script>
+</html>
